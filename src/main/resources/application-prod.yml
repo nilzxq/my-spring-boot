@@ -1,0 +1,5 @@
+server:
+  port: 8081
+my-spring-boot:
+  cupSize: F
+  age: 18
