@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +19,10 @@ import com.xgs.domain.Gril;
 import com.xgs.repository.GrilRep;
 @RestController
 public class GrilController {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(GrilController.class);
+
 
 	@Autowired
 	private GrilRep grilRep;
@@ -26,7 +32,8 @@ public class GrilController {
 	 */
 	@RequestMapping(value="/grils",method=RequestMethod.GET)
 	public List<Gril> getGrilList(){
-		System.out.println("grilList");
+		//System.out.println("grilList");
+		log.info("grilList");
 		return grilRep.findAll();
 	}
 	
