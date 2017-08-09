@@ -1,16 +1,20 @@
-package com.xgs;
+package com.xgs.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.xgs.domain.Gril;
+import com.xgs.repository.GrilRep;
 @RestController
 public class GrilController {
 
@@ -22,6 +26,7 @@ public class GrilController {
 	 */
 	@RequestMapping(value="/grils",method=RequestMethod.GET)
 	public List<Gril> getGrilList(){
+		System.out.println("grilList");
 		return grilRep.findAll();
 	}
 	
@@ -32,11 +37,13 @@ public class GrilController {
 	 * @return
 	 */
 	@RequestMapping(value="/grils",method=RequestMethod.POST)
-	public Gril addGril(@RequestParam("cupSize")String cupSize,
-			                 @RequestParam("age")Integer age) {
-		Gril gril=new Gril();
-		gril.setAge(age);
-		gril.setCupSize(cupSize);
+	public Gril addGril(@Valid Gril gril,BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getFieldError().getDefaultMessage());
+			return null;
+		}
+		gril.setAge(gril.getAge());
+		gril.setCupSize(gril.getCupSize());
 	    return grilRep.save(gril);
 	}
 	/**

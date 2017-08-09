@@ -1,8 +1,9 @@
-package com.xgs;
+package com.xgs.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Gril {
@@ -11,6 +12,7 @@ public class Gril {
 	@GeneratedValue
 	private Integer id;
 	private String cupSize;
+	@Min(value=18,message="未成年少女不得入内")
 	private Integer age;
 	public Gril() {
 	}

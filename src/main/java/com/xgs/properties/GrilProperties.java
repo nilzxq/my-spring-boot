@@ -1,4 +1,4 @@
-package com.xgs;
+package com.xgs.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
