@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xgs.domain.Gril;
+import com.xgs.domain.Result;
 import com.xgs.repository.GrilRep;
+import com.xgs.utils.ResultUtil;
 @RestController
 public class GrilController {
-	
 	
 	private static final Logger log = LoggerFactory.getLogger(GrilController.class);
 
@@ -44,14 +45,13 @@ public class GrilController {
 	 * @return
 	 */
 	@RequestMapping(value="/grils",method=RequestMethod.POST)
-	public Gril addGril(@Valid Gril gril,BindingResult bindingResult) {
+	public Result<Gril> addGril(@Valid Gril gril,BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getFieldError().getDefaultMessage());
-			return null;
+			return ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
 		}
 		gril.setAge(gril.getAge());
 		gril.setCupSize(gril.getCupSize());
-	    return grilRep.save(gril);
+	    return ResultUtil.success(grilRep.save(gril));
 	}
 	/**
 	 * 根据Id查询女生
